@@ -1,0 +1,6 @@
+Ne pas oublier de mettre les middlewares : 
+- Format
+- version
+- hateoas
+- langues
+
