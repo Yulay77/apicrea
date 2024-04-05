@@ -10,3 +10,11 @@ Logique de mouvement
     Séparé les joueur par user (/controller /middleware)
 
 
+
+
+Ne pas oublier de mettre les middlewares : 
+- Format
+- version
+- hateoas
+- langues
+
