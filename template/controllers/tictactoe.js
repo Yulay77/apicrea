@@ -1,13 +1,45 @@
+const { TicTacToe } = require('../models/tictactoe');
+
 let board = [['', '', ''], ['', '', ''], ['', '', '']];
 let currentPlayer = 'X';
 
-function makeMove(row, col) {
+
+
+function move(row, col) {
     if (board[row][col] === '') {
         board[row][col] = currentPlayer;
         currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
     }
 }
+function start() {
+    // Create a new instance of TicTacToe
+    const game = new TicTacToe();
+    // Reset the current player
+    currentPlayer = 'X';
 
+    // Play the game until there is a winner or a draw
+    while (true) {
+        // Get the row and column from the user
+        const row = prompt('Enter the row (0-2):');
+        const col = prompt('Enter the column (0-2):');
+
+        // Make the move
+        game.move(row, col);
+
+        // Check if there is a winner
+        const winner = game.checkWin();
+        if (winner) {
+            console.log(`Player ${winner} wins!`);
+            break;
+        }
+
+        // Check if it's a draw
+        if (game.isDraw()) {
+            console.log('It\'s a draw!');
+            break;
+        }
+    }
+}
 function checkWin() {
     // Vérifiez les lignes
     for (let i = 0; i < 3; i++) {

@@ -5,14 +5,30 @@ POST http://localhost:5001/users
 Content-Type: application/json
 
 {
-    "lastname": "Doeee",
-    "email": "testee2@test.com",
-    "password": "Azeerty12345!"
+    "lastname": "Tom1",
+    "email": "tom1@tom.com",
+    "password": "Azerty12345!"
 }
 
-###
-GET http://localhost:5001/users/lastname:Doee
+###~
+GET http://localhost:5001/users/ecc95b6a-592f-4a22-ac97-f40094cd9241
+
+### Login (le password tu le récupères quand tu réussi l'inscription)
+POST http://localhost:5001/login
 Content-Type: application/json
+
+{
+    "email": "tom1@tom.com",
+    "password": "$2a$10$eyqyKA0Ci98J4GN2whiZpuQJT8fHVLBAH6CgnWOLtKQRL/IK2DH9q"
+}
+
+### Pour voir le user connecté (le token (bearer) tu le récupères quand tu réussis le login) 
+GET http://localhost:5001/users
+Authorization: Bearer $2a$10$P92w/cJe1feLlt2tc190d.Ig7wrP8ScZS3igG9R.rWP3YpHwoOHHm
+
+
+###
+POST http://localhost:5001/game/start
 
 
 ###

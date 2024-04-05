@@ -9,6 +9,9 @@ Logique de mouvement
     Ajouter la mark au board (/controller)
     Séparé les joueur par user (/controller /middleware)
 
+Requete:
+
+board: affiche le tableau de jeu
 
 
 
