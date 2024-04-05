@@ -5,42 +5,42 @@ module.exports = function TictactoeModelGenerator(connection) {
     
     Tictactoe.init(
         {
-        id: {
-            type: DataTypes.STRING,
-            unique: true,
-            primaryKey: true,
-            defaultValue: DataTypes.UUIDV4,
-        },
-        player1: {
-            type: DataTypes.STRING,
-            allowNull: false,
-            validate: {
-            len: 3,
+            id: {
+                type: DataTypes.STRING,
+                unique: true,
+                primaryKey: true,
+                defaultValue: DataTypes.UUIDV4,
             },
-        },
-        player2: {
-            type: DataTypes.STRING,
-            allowNull: false,
-            validate: {
-            len: 3,
+            player1: {
+                type: DataTypes.STRING,
+                allowNull: false,
+                validate: {
+                    len: 3,
+                },
             },
-        },
-        winner: {
-            type: DataTypes.STRING,
-            allowNull: true,
-            defaultValue: null,
-        },
-        board: {
-            type: DataTypes.STRING,
-            allowNull: false,
-            defaultValue: "         ",
-            validate: {
-            len: 9,
+            player2: {
+                type: DataTypes.STRING,
+                allowNull: false,
+                validate: {
+                    len: 3,
+                },
             },
-        },
+            winner: {
+                type: DataTypes.STRING,
+                allowNull: true,
+                defaultValue: null,
+            },
+            board: {
+                type: DataTypes.ARRAY(DataTypes.STRING),
+                allowNull: false,
+                defaultValue: [(" ", " ", " "), (" ", " ", " "), (" ", " ", " ")],
+                validate: {
+                    len: 9,
+                },
+            },
         },
         {
-        sequelize: connection,
+            sequelize: connection,
         }
     );
     
