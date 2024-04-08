@@ -1,4 +1,4 @@
-const { createGame, joinGame } = require("../models/tictactoe.js");
+const { createGame, joinGame } = require("../models/game.js");
 // game.js
 
 // Stockage des parties en cours

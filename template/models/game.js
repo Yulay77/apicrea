@@ -3,7 +3,7 @@ const { Model, DataTypes } = require("sequelize");
 module.exports = function TictactoeModelGenerator(connection) {
     class Tictactoe extends Model {}
     
-    Tictactoe.init(
+    Game.init(
         {
             id: {
                 type: DataTypes.STRING,
@@ -24,11 +24,6 @@ module.exports = function TictactoeModelGenerator(connection) {
                 validate: {
                     len: 3,
                 },
-            },
-            winner: {
-                type: DataTypes.STRING,
-                allowNull: true,
-                defaultValue: null,
             },
             board: {
                 type: DataTypes.ARRAY(DataTypes.STRING),
