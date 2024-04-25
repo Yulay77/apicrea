@@ -1,10 +1,25 @@
 const { createGame, joinGame } = require("../models/game.js");
+const uuid = require('uuid');
 // game.js
 
 // Stockage des parties en cours
 const activeGames = {
     
 };
+
+function generateGameId() {
+    // Implémentez votre propre logique pour générer un ID unique
+    // Par exemple, vous pouvez utiliser un horodatage ou un UUID
+    // Pour simplifier, nous utilisons un nombre aléatoire ici
+    //return Math.floor(Math.random() * 100);
+    return uuid.v4();
+};
+
+// Initialiser un plateau de jeu vide
+function initializeBoard() {
+    return ["", "", "", "", "", "", "", "", ""];
+}
+
 module.exports = {
 
     createGame: async(req, res, next) => {
@@ -17,7 +32,9 @@ module.exports = {
             board: initializeBoard(), // Initialiser le plateau de jeu (tableau vide)
         };
         activeGames[gameId] = newGame;
-        return gameId;
+        res.json({ gameId }); // Send the gameId back to the client
+        //return gameId;
+        
     },
 
     // Rejoindre une partie existante
@@ -30,7 +47,7 @@ module.exports = {
     },
 
     // Fonction utilitaire pour générer un identifiant unique
-    generateGameId() {
+/*    generateGameId() {
         // Implémentez votre propre logique pour générer un ID unique
         // Par exemple, vous pouvez utiliser un horodatage ou un UUID
         // Pour simplifier, nous utilisons un nombre aléatoire ici
@@ -41,6 +58,6 @@ module.exports = {
     initializeBoard() {
         return ["", "", "", "", "", "", "", "", ""];
     }
-
+*/
 
 };

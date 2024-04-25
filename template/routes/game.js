@@ -6,10 +6,9 @@ const GameController = require("../controllers/game"); // Assurez-vous d'avoir u
 
 
 // Créer une nouvelle partie
-router.post("/create", GameController.createGame);
+router.post("/create",/*CheckAuth*/ GameController.createGame);
 
 // Rejoindre une partie existante
-//router.post("/join/:gameId", game.joinGame);
 router.post("/join/:gameId", GameController.joinGame);
 
 

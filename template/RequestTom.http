@@ -1,7 +1,8 @@
 ### creer une partie 
 
-POST http://localhost/game/create
+POST http://localhost:5001/game/create
 Content-Type: application/json 
+
 {
     "creatorId":"83ef4bc5-d63c-4b2a-ad89-1865b754d91e"
 }
@@ -11,19 +12,21 @@ POST http://localhost:5001/users
 Content-Type: application/json
 
 {
-    "lastname": "Tom4",
-    "email": "tom4@tom.com",
+    "lastname": "Tom6",
+    "email": "tom6@tom.com",
     "password": "Azerty123456!"
 }
 
+
 ###
-GET http://localhost:5001/users/83ef4bc5-d63c-4b2a-ad89-1865b754d91e
+GET http://localhost:5001/users/d22a6cda-5953-4a78-9d4f-201c5e1a537e
 
 ###
 POST http://localhost:5001/security/login
 Content-Type: application/json
+
 {
-    "email": "tom3@tom.com",
+    "email": "tom6@tom.com",
     "password": "Azerty12345!"
 }
 
@@ -35,6 +38,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOiI4M2VmN
 
 POST http://localhost:5001/create
 Content-Type: application/json
+
 {
     "creatorId": "ecc95b6a-592f-4a22-ac97-f40094cd9241"
 }
