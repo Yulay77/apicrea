@@ -1,35 +1,40 @@
 ### creer une partie 
 
-POST http://localhost/game/create
+POST http://localhost:5001/game/create
 Content-Type: application/json 
+
 {
-    "creatorId":"83ef4bc5-d63c-4b2a-ad89-1865b754d91e"
+    "creatorId":"60c6c5ac-cfec-44fb-866e-8ddbb4b6ab5e"
 }
+
+#####
+GET http://localhost:5001/game/
 
 ###
 POST http://localhost:5001/users
 Content-Type: application/json
 
 {
-    "lastname": "Tom4",
-    "email": "tom4@tom.com",
+    "lastname": "Tom",
+    "email": "tom4@om.om",
     "password": "Azerty123456!"
 }
 
 ###
-GET http://localhost:5001/users/83ef4bc5-d63c-4b2a-ad89-1865b754d91e
+GET http://localhost:5001/users/60c6c5ac-cfec-44fb-866e-8ddbb4b6ab5e
 
 ###
 POST http://localhost:5001/security/login
 Content-Type: application/json
+
 {
-    "email": "tom3@tom.com",
+    "email": "matehote@test.com",
     "password": "Azerty12345!"
 }
 
 ### Pour voir le user connecté (le token (bearer) tu le récupères quand tu réussis le login) 
 GET http://localhost:5001/users/
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOiI4M2VmNGJjNS1kNjNjLTRiMmEtYWQ4OS0xODY1Yjc1NGQ5MWUiLCJmdWxsTmFtZSI6Im51bGwgVG9tMyIsImlhdCI6MTcxNDA0NzAzMn0.Wumf9Hr3oa7cZOFYJQna-k_dicD6iYQm4xSeNpFaD4g
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOiI2MGM2YzVhYy1jZmVjLTQ0ZmItODY2ZS04ZGRiYjRiNmFiNWUiLCJmdWxsTmFtZSI6Im51bGwgbnVsbCIsImlhdCI6MTcxNDA2MTE1OH0.LbKh_1_AqwAg_VKBMen6x2pB_4bDleZ0tfn8K-BMqns
 
 ###
 
@@ -126,7 +131,7 @@ POST http://localhost:5001/users
 Content-Type: application/json
 
 {
-    "email": "testt@user.com",
+    "email": "matehote@test.com",
     "password": "Azerty12345!"
 }
 
