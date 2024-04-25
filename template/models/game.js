@@ -1,7 +1,7 @@
 const { Model, DataTypes } = require("sequelize");
 
 module.exports = function TictactoeModelGenerator(connection) {
-    class Tictactoe extends Model {}
+    class Game extends Model {}
     
     Game.init(
         {

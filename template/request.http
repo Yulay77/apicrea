@@ -1,3 +1,11 @@
+### creer une partie 
+
+POST http://localhost/game/create
+Content-Type: application/json 
+{
+    "creatorId":"83ef4bc5-d63c-4b2a-ad89-1865b754d91e"
+}
+
 ###
 POST http://localhost:5001/users
 Content-Type: application/json
@@ -11,10 +19,9 @@ Content-Type: application/json
 ###
 GET http://localhost:5001/users/83ef4bc5-d63c-4b2a-ad89-1865b754d91e
 
-### Login (le password tu le récupères quand tu réussi l'inscription)
+###
 POST http://localhost:5001/security/login
 Content-Type: application/json
-
 {
     "email": "tom3@tom.com",
     "password": "Azerty12345!"
