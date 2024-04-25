@@ -6,9 +6,14 @@ const activeGames = {
     
 };
 module.exports = {
-    iget: async (req, res, next) => {
-        if (activeGames) res.json(activeGames);
-        else res.sendStatus(404);
+    getGame: async (req, res, next) => {
+        try {
+            const games = Object.values(activeGames);
+            const gamesFound = games.filter(game => game.player2 === null);
+            res.json(gamesFound);
+        } catch (error) {
+            next(error);
+        }
     },
     createGame: async (req, res, next) => {
         try {

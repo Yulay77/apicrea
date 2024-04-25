@@ -13,7 +13,7 @@ router.post("/create", GameController.createGame);
 router.post("/join/:gameId", GameController.joinGame);
 
 // Item route : GET : fetch an user
-router.get( /* middlewares */ GameController.iget);
+router.get("", /* middlewares */ GameController.getGame);
 
 
 // Autres routes spécifiques au jeu (par exemple, jouer un coup, obtenir l'état du plateau, etc.)
