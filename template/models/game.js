@@ -1,6 +1,6 @@
 const { Model, DataTypes } = require("sequelize");
 
-module.exports = function TictactoeModelGenerator(connection) {
+module.exports = function GameModelGenerator(connection) {
     class Game extends Model {}
     
     Game.init(
@@ -15,22 +15,30 @@ module.exports = function TictactoeModelGenerator(connection) {
                 type: DataTypes.STRING,
                 allowNull: false,
                 validate: {
-                    len: 3,
-                },
+                    len: {
+                        args: [36, 36], // UUIDs ont une longueur de 36
+                        msg: "L'ID du joueur 1 doit être un UUID valide."
+                    }
+                }
             },
             player2: {
                 type: DataTypes.STRING,
-                allowNull: false,
+                allowNull: true,
                 validate: {
-                    len: 3,
-                },
+                    len: {
+                        args: [36, 36], // UUIDs ont une longueur de 36
+                        msg: "L'ID du joueur 2 doit être un UUID valide."
+                    }
+                }
             },
             board: {
                 type: DataTypes.ARRAY(DataTypes.STRING),
                 allowNull: false,
-                defaultValue: [(" ", " ", " "), (" ", " ", " "), (" ", " ", " ")],
+                defaultValue: [" ", " ", " ", " ", " ", " ", " ", " ", " "], // Tableau aplati
                 validate: {
-                    len: 9,
+                    len: {
+                        args:9,
+                        msg: "Le plateau de jeu à eu une erreur à l'initialisation."}
                 },
             },
         },
@@ -39,5 +47,5 @@ module.exports = function TictactoeModelGenerator(connection) {
         }
     );
     
-    return Tictactoe;
+    return Game;
     }

@@ -1,13 +1,11 @@
-### creer une partie 
-
+### creer une partie
 POST http://localhost:5001/game/create
 Content-Type: application/json 
 
 {
     "creatorId":"60c6c5ac-cfec-44fb-866e-8ddbb4b6ab5e"
 }
-
-#####
+###
 GET http://localhost:5001/game/
 
 ###
