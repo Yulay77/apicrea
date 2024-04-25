@@ -15,14 +15,14 @@ module.exports = function TictactoeModelGenerator(connection) {
                 type: DataTypes.STRING,
                 allowNull: false,
                 validate: {
-                    len: 3,
+                    len: 50,
                 },
             },
             player2: {
                 type: DataTypes.STRING,
                 allowNull: false,
                 validate: {
-                    len: 3,
+                    len: 50,
                 },
             },
             board: {

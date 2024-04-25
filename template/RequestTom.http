@@ -1,10 +1,21 @@
-### creer une partie 
-
+### Créer une partie 
 POST http://localhost:5001/game/create
 Content-Type: application/json 
 
 {
     "creatorId":"83ef4bc5-d63c-4b2a-ad89-1865b754d91e"
+}
+
+### Voir toutes les parties
+GET http://localhost:5001/game
+
+
+### Rejoindre une partie (id de la game dans l'url)
+POST http://localhost:5001/game/join/:2a3d2521-2684-44d3-bceb-3e257eb2645a
+Content-Type: application/json 
+
+{
+    "playerId":"83ef4bc5-d63c-4b2a-ad89-1865b754d91e"
 }
 
 ###

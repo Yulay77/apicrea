@@ -1,4 +1,4 @@
-const { createGame, joinGame } = require("../models/game.js");
+const { createGame, joinGame, Game } = require("../models");
 const uuid = require('uuid');
 // game.js
 
@@ -22,6 +22,12 @@ function initializeBoard() {
 
 module.exports = {
 
+    //Voir toutes les parties
+    getAllGames: async (req, res, next) => {
+        const games = await Game.findAll();
+        res.status(200).json(games);
+    },
+
     createGame: async(req, res, next) => {
         const creatorId = req.body;
         const gameId = generateGameId(); // Générez un identifiant unique pour la partie
@@ -38,13 +44,23 @@ module.exports = {
     },
 
     // Rejoindre une partie existante
-    joinGame(gameId, playerId) {
+    /*joinGame(gameId, playerId) {
         if (activeGames[gameId]) {
             activeGames[gameId].player2 = playerId; // Le joueur 2 rejoint la partie
             return true;
         }
-        return false; // La partie n'existe pas
-    },
+        res.json({ gameId, playerId, CreatorId }); // Send the gameId back to the client
+        //return false; // La partie n'existe pas
+    */
+    joinGame(req, res, next) {
+            const { gameId, playerId } = req.body;
+            if (activeGames[gameId]) {
+                activeGames[gameId].player2 = playerId; // Le joueur 2 rejoint la partie
+                res.json({ success: true, gameId, playerId });
+            } else {
+                res.json({ success: false, message: 'La partie n\'existe pas' });
+            }
+        },
 
     // Fonction utilitaire pour générer un identifiant unique
 /*    generateGameId() {
