@@ -8,6 +8,19 @@ Content-Type: application/json
 ###
 GET http://localhost:5001/game/
 
+##### Supprime toutes les parties en cours
+
+DELETE http://localhost:5001/game/
+
+### Rejoindre une partie
+POST http://localhost:5001/game/join
+Content-Type: application/json 
+
+{
+    "playerId":"5013f8c3-8f31-4638-9e7b-410deb8caad8",
+    "gameId":"213"
+}
+
 ###
 POST http://localhost:5001/users
 Content-Type: application/json
