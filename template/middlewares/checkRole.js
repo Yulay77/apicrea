@@ -1,4 +1,4 @@
-module.exports = function (role) {
+module.exports = function (roles) {
     if (typeof role !== "string") {
         roles = [roles];
     }

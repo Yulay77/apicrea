@@ -1,11 +1,9 @@
-const {Router} = require("express");
+const { Router } = require("express");
 const SecurityController = require("../controllers/security");
 const router = new Router();
+//const checkAuth = require("../middlewares/checkAuth");
 
 // Collection route : GET : list users
-router.post("login", /* middlewares */ SecurityController.login);
-
-// Collection route : POST : create an user
-//router.post("/register", /* middlewares */ SecurityController.register);
+router.post("/login", /* middlewares */ SecurityController.login);
 
 module.exports = router;

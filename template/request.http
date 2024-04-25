@@ -1,32 +1,31 @@
-
 ###
 POST http://localhost:5001/users
 Content-Type: application/json
 
 {
-    "lastname": "Tom2",
-    "email": "tom2@tom.com",
-    "password": "Azerty12345!"
+    "lastname": "Tom4",
+    "email": "tom4@tom.com",
+    "password": "Azerty123456!"
 }
 
 ###
-GET http://localhost:5001/users/b3c7ecd8-1c96-4549-8741-abc9b304a8b5
+GET http://localhost:5001/users/83ef4bc5-d63c-4b2a-ad89-1865b754d91e
 
 ### Login (le password tu le récupères quand tu réussi l'inscription)
 POST http://localhost:5001/security/login
 Content-Type: application/json
 
 {
-    "email": "tom2@tom.com",
+    "email": "tom3@tom.com",
     "password": "Azerty12345!"
 }
 
 ### Pour voir le user connecté (le token (bearer) tu le récupères quand tu réussis le login) 
 GET http://localhost:5001/users/
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOiJlY2M5NWI2YS01OTJmLTRhMjItYWM5Ny1mNDAwOTRjZDkyNDEiLCJmdWxsTmFtZSI6Im51bGwgVG9tIiwiaWF0IjoxNzEyNTgyMTc3fQ.5DXXOBTIhJdmBa8yv5F9MTtxWwvn9ZXjbAkcgKdmWI8
-
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOiI4M2VmNGJjNS1kNjNjLTRiMmEtYWQ4OS0xODY1Yjc1NGQ5MWUiLCJmdWxsTmFtZSI6Im51bGwgVG9tMyIsImlhdCI6MTcxNDA0NzAzMn0.Wumf9Hr3oa7cZOFYJQna-k_dicD6iYQm4xSeNpFaD4g
 
 ###
+
 POST http://localhost:5001/create
 Content-Type: application/json
 {
