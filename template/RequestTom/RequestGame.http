@@ -1,0 +1,43 @@
+### creer une partie
+POST http://localhost:5001/game/create
+Content-Type: application/json 
+
+{
+    "creatorId":"483c7ac4-d625-411c-ba69-7cf54dd60740"
+}
+
+### Voir les parties en cours
+GET http://localhost:5001/game
+
+##### Supprime toutes les parties en cours
+DELETE http://localhost:5001/game/delete
+
+### Supprime une partie (id de la game dans l'url)
+DELETE http://localhost:5001/game/delete/623
+
+### Rejoindre une partie (id de la game dans l'url)
+POST http://localhost:5001/game/join/ad2ac406-1efe-4f0a-a13b-e96491244377
+Content-Type: application/json 
+
+{
+    "playerId":"c944ceb9-d3ce-4d73-9902-2c6a1d4560ca"
+}
+
+
+### Make Move (id game + user 1) 
+POST http://localhost:5001/game/play/ad2ac406-1efe-4f0a-a13b-e96491244377
+Content-Type: application/json 
+
+{
+    "playerId":"483c7ac4-d625-411c-ba69-7cf54dd60740",
+    "move": 8
+}
+
+### Make Move (id game + user 2)
+POST http://localhost:5001/game/play/ad2ac406-1efe-4f0a-a13b-e96491244377
+Content-Type: application/json 
+
+{
+    "playerId":"c944ceb9-d3ce-4d73-9902-2c6a1d4560ca",
+    "move": 6
+}

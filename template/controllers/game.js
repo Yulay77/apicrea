@@ -1,3 +1,4 @@
+const { NOT } = require("sequelize/lib/deferrable");
 const { Game } = require("../models");
 const uuid = require("uuid");
 // game.js
@@ -9,9 +10,9 @@ module.exports = {
   getGame: async (req, res, next) => {
     try {
       const gamesFound = await Game.findAll({
-        where: {
+        /*where: {
           player2: null,
-        },
+        },*/
       });
       res.json(gamesFound);
     } catch (error) {
@@ -150,21 +151,20 @@ module.exports = {
 
       if (!game) {
         return res
-        .status(404)
-        .json({ error: "La partie n'a pas été trouvée." });
+          .status(404)
+          .json({ error: "La partie n'a pas été trouvée." });
       }
 
       // Vérifiez si c'est le tour du joueur
 
-      if (game.currentTurn !== playerId) {
+      /*if (game.currentTurn !== playerId) {
         return res.status(403).json({ error: "Ce n'est pas votre tour." });
-      }
+      }*/
       // Mettez à jour le plateau de jeu
       const board = game.board;
       board[move] = playerId === game.player1 ? "X" : "O";
       // Vérifiez si le jeu est terminé
-      const winner = checkWinner(board);
-
+      const winner = checkWinner(board, playerId === game.player1? "X" : "O");
       if (winner) {
         await Game.update(
           { winner: winner },
@@ -197,10 +197,70 @@ module.exports = {
     }
   },
 };
+const checkWinner = (board, currentPlayer) => {
+  // Vérifiez les lignes
+  for (let i = 0; i < 3; i++) {
+    if (board[i] === board[i + 1] && board[i + 1] === board[i + 2]) {
+      if (board[i] === (currentPlayer === "X"? "X" : "O")) {
+        return currentPlayer;
+      }
+    }
+  }
+
+  // Vérifiez les colonnes
+  for (let i = 0; i < 3; i++) {
+    if (board[i * 3] === board[i * 3 + 1] && board[i * 3 + 1] === board[i * 3 + 2]) {
+      if (board[i * 3] === (currentPlayer === "X"? "X" : "O")) {
+        return currentPlayer;
+      }
+    }
+  }
+
+  // Vérifiez les diagonales
+  if (board[0] === board[4] && board[4] === board[8]) {
+    if (board[0] === (currentPlayer === "X"? "X" : "O")) {
+      return currentPlayer;
+    }
+  }
+
+  if (board[2] === board[4] && board[4] === board[6]) {
+    if (board[2] === (currentPlayer === "X"? "X" : "O")) {
+      return currentPlayer;
+    }
+  }
+
+  // Si personne n'a gagné, retournez null
+  return null;
+};
+/*const checkWinner = (board) => {
+  // Vérifiez les lignes
+  for (let i = 0; i < 3; i++) {
+    if (board[i] === board[i + 1] && board[i + 1] === board[i + 2]) {
+      return board[i] === "X"? "X" : "O";
+    }
+  }
+
+  // Vérifiez les colonnes
+  for (let i = 0; i < 3; i++) {
+    if (board[i * 3] === board[i * 3 + 1] && board[i * 3 + 1] === board[i * 3 + 2]) {
+      return board[i * 3] === "X"? "X" : "O";
+    }
+  }
+
+  // Vérifiez les diagonales
+  if (board[0] === board[4] && board[4] === board[8]) {
+    return board[0] === "X"? "X" : "O";
+  }
+
+  if (board[2] === board[4] && board[4] === board[6]) {
+    return board[2] === "X"? "X" : "O";
+  }
+
+  // Si personne n'a gagné, retournez null
+  return null;
+};
+};*/
 
 function generateGameId() {
   return uuid.v4();
 }
-/*function initializeBoard() {
-  return [" ", " ", " ", " ", " ", " ", " ", " ", " "];
-}*/

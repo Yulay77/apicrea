@@ -20,7 +20,7 @@ router.delete("/delete", /* middlewares */ GameController.deleteAll);
 // Item route : DELETE : delete a game
 router.delete("/delete/:gameId", /* middlewares */ GameController.deleteOne);
 
-// Autres routes spécifiques au jeu (par exemple, jouer un coup, obtenir l'état du plateau, etc.)
-//router.post("/:gameID", /*middlewares*/ GameController.play);
+// Jouer 
 router.post("/play/:gameId", GameController.makeMove);
+
 module.exports = router;
