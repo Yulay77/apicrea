@@ -9,26 +9,8 @@ Content-Type: application/json
 GET http://localhost:5001/game/
 
 ##### Supprime toutes les parties en cours
+
 DELETE http://localhost:5001/game/delete
-
-### Supprime une partie (id de la game dans l'url)
-DELETE http://localhost:5001/game/delete/623
-
-### Rejoindre une partie (id de la game dans l'url)
-POST http://localhost:5001/game/join/310db3f2-1ea3-494a-a689-828f12160274
-Content-Type: application/json 
-
-{
-    "playerId":"83ef4bc5-d63c-4b2a-ad89-1865b754d91e"
-}
-
-### Rejoindre une partie
-POST http://localhost:5001/game/join/954
-Content-Type: application/json 
-
-{
-    "playerId":"5013f8c3-8f31-4638-9e7b-410deb8caad8"
-}
 
 ### Rejoindre une partie
 POST http://localhost:5001/game/join
@@ -57,13 +39,13 @@ POST http://localhost:5001/security/login
 Content-Type: application/json
 
 {
-    "email": "tom4@om.om",
-    "password": "Azerty123456!"
+    "email": "matehote@test.com",
+    "password": "Azerty12345!"
 }
 
 ### Pour voir le user connecté (le token (bearer) tu le récupères quand tu réussis le login) 
 GET http://localhost:5001/users/
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOiI5YjYxYjYyZi1hMmRmLTQwZmItOTRmMC0wZWVmYWFlZTE2YTAiLCJmdWxsTmFtZSI6Im51bGwgVG9tIiwiaWF0IjoxNzE0MTE3MzEzfQ.Um6mdWaJCETe9rIVEsxhlDtsU7i6VgUDo_WfwKbZLqw
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOiI2MGM2YzVhYy1jZmVjLTQ0ZmItODY2ZS04ZGRiYjRiNmFiNWUiLCJmdWxsTmFtZSI6Im51bGwgbnVsbCIsImlhdCI6MTcxNDA2MTE1OH0.LbKh_1_AqwAg_VKBMen6x2pB_4bDleZ0tfn8K-BMqns
 
 ###
 

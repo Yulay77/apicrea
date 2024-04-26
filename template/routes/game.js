@@ -9,17 +9,16 @@ const GameController = require("../controllers/game"); // Assurez-vous d'avoir u
 router.post("/create", GameController.createGame);
 
 // Rejoindre une partie existante
-//router.post("/join/:gameId", game.joinGame);
-router.post("/join/:gameId", GameController.joinGame);
+router.post("/join/:gameId",/* middlewares */ GameController.joinGame);
 
 // Item route : GET : fetch an user
 router.get("", /* middlewares */ GameController.getGame);
 
 // Item route : DELETE ALL : delete all games
-router.delete("", /* middlewares */ GameController.deleteAll);
+router.delete("/delete", /* middlewares */ GameController.deleteAll);
 
-// Item route : JOIN GAME : join a game
-router.post("/join/:gameId", /* middlewares */ GameController.joinGame);
+// Item route : DELETE : delete a game
+router.delete("/delete/:gameId", /* middlewares */ GameController.deleteOne);
 
 // Autres routes spécifiques au jeu (par exemple, jouer un coup, obtenir l'état du plateau, etc.)
 
