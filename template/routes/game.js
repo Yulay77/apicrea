@@ -15,4 +15,6 @@ router.post("/join/:gameId", GameController.joinGame);
 router.get("", GameController.getAllGames);
 // Autres routes spécifiques au jeu (par exemple, jouer un coup, obtenir l'état du plateau, etc.)
 
+router.post("/:gameID", /*middlewares*/ GameController.play);
+
 module.exports = router;
