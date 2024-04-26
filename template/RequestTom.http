@@ -1,15 +1,18 @@
-### Créer une partie 
+### creer une partie
 POST http://localhost:5001/game/create
 Content-Type: application/json 
 
 {
-    "creatorId":"83ef4bc5-d63c-4b2a-ad89-1865b754d91e"
+    "creatorId":"60c6c5ac-cfec-44fb-866e-8ddbb4b6ab5e"
 }
+###
+GET http://localhost:5001/game/
 
-### Voir toutes les parties
-GET http://localhost:5001/game
+##### Supprime toutes les parties en cours
 
+DELETE http://localhost:5001/game/
 
+<<<<<<< HEAD
 <<<<<<< Updated upstream:template/RequestTom.http
 ### Rejoindre une partie (id de la game dans l'url)
 POST http://localhost:5001/game/join/:2a3d2521-2684-44d3-bceb-3e257eb2645a
@@ -25,6 +28,15 @@ Content-Type: application/json
 {
     "playerId":"5013f8c3-8f31-4638-9e7b-410deb8caad8"
 >>>>>>> Stashed changes:template/request.http
+=======
+### Rejoindre une partie
+POST http://localhost:5001/game/join
+Content-Type: application/json 
+
+{
+    "playerId":"5013f8c3-8f31-4638-9e7b-410deb8caad8",
+    "gameId":"213"
+>>>>>>> 90b051b309e8d21d39532a742840ec09597a17ac
 }
 
 ###
@@ -32,33 +44,31 @@ POST http://localhost:5001/users
 Content-Type: application/json
 
 {
-    "lastname": "Tom6",
-    "email": "tom6@tom.com",
+    "lastname": "Tom",
+    "email": "tom4@om.om",
     "password": "Azerty123456!"
 }
 
-
 ###
-GET http://localhost:5001/users/d22a6cda-5953-4a78-9d4f-201c5e1a537e
+GET http://localhost:5001/users/60c6c5ac-cfec-44fb-866e-8ddbb4b6ab5e
 
 ###
 POST http://localhost:5001/security/login
 Content-Type: application/json
 
 {
-    "email": "tom6@tom.com",
+    "email": "matehote@test.com",
     "password": "Azerty12345!"
 }
 
 ### Pour voir le user connecté (le token (bearer) tu le récupères quand tu réussis le login) 
 GET http://localhost:5001/users/
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOiI4M2VmNGJjNS1kNjNjLTRiMmEtYWQ4OS0xODY1Yjc1NGQ5MWUiLCJmdWxsTmFtZSI6Im51bGwgVG9tMyIsImlhdCI6MTcxNDA0NzAzMn0.Wumf9Hr3oa7cZOFYJQna-k_dicD6iYQm4xSeNpFaD4g
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOiI2MGM2YzVhYy1jZmVjLTQ0ZmItODY2ZS04ZGRiYjRiNmFiNWUiLCJmdWxsTmFtZSI6Im51bGwgbnVsbCIsImlhdCI6MTcxNDA2MTE1OH0.LbKh_1_AqwAg_VKBMen6x2pB_4bDleZ0tfn8K-BMqns
 
 ###
 
 POST http://localhost:5001/create
 Content-Type: application/json
-
 {
     "creatorId": "ecc95b6a-592f-4a22-ac97-f40094cd9241"
 }
@@ -150,7 +160,7 @@ POST http://localhost:5001/users
 Content-Type: application/json
 
 {
-    "email": "testt@user.com",
+    "email": "matehote@test.com",
     "password": "Azerty12345!"
 }
 
