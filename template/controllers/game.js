@@ -105,7 +105,7 @@ module.exports = {
     }
   },
 
-  play: async (req, res, next) => {
+  /*play: async (req, res, next) => {
     try {
       const { gameId, playerId, move } = req.body;
 
@@ -133,12 +133,73 @@ module.exports = {
     } catch (error) {
       next(error);
     }
+  },*/
+  makeMove: async (req, res, next) => {
+    try {
+      const gameId = req.params.gameId; // Récupérez gameId à partir des paramètres de la requête
+
+      const playerId = req.body.playerId; // Récupérez playerId à partir du corps de la requête
+
+      const move = req.body.move; // Récupérez le mouvement à partir du corps de la requête
+
+      // Recherchez la partie par son ID
+
+      const game = await Game.findByPk(gameId);
+
+      // Si la partie n'existe pas, retournez une erreur
+
+      if (!game) {
+        return res
+        .status(404)
+        .json({ error: "La partie n'a pas été trouvée." });
+      }
+
+      // Vérifiez si c'est le tour du joueur
+
+      if (game.currentTurn !== playerId) {
+        return res.status(403).json({ error: "Ce n'est pas votre tour." });
+      }
+      // Mettez à jour le plateau de jeu
+      const board = game.board;
+      board[move] = playerId === game.player1 ? "X" : "O";
+      // Vérifiez si le jeu est terminé
+      const winner = checkWinner(board);
+
+      if (winner) {
+        await Game.update(
+          { winner: winner },
+          {
+            where: {
+              id: gameId,
+            },
+          }
+        );
+
+        res.json({ message: `Le joueur ${winner} a gagné!` });
+      } else {
+        // Mettez à jour le tour actuel
+
+        game.currentTurn =
+          playerId === game.player1 ? game.player2 : game.player1;
+
+        await Game.update(
+          { board: board, currentTurn: game.currentTurn },
+          {
+            where: {
+              id: gameId,
+            },
+          }
+        );
+        res.json({ message: "Mouvement effectué avec succès." });
+      }
+    } catch (error) {
+      next(error);
+    }
   },
 };
 
 function generateGameId() {
   return uuid.v4();
-
 }
 /*function initializeBoard() {
   return [" ", " ", " ", " ", " ", " ", " ", " ", " "];

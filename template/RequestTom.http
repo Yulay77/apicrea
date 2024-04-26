@@ -30,13 +30,23 @@ Content-Type: application/json
     "playerId":"5013f8c3-8f31-4638-9e7b-410deb8caad8"
 }
 
-### Rejoindre une partie
-POST http://localhost:5001/game/join
+### Make Move (id game) 
+POST http://localhost:5001/game/play/42d12f26-010b-4bdd-907a-61d4e2b7b698
 Content-Type: application/json 
 
 {
     "playerId":"5013f8c3-8f31-4638-9e7b-410deb8caad8",
-    "gameId":"213"
+    "board": [
+      " ",
+      " ",
+      " ",
+      " ",
+      " ",
+      " ",
+      " ",
+      "",
+      " "
+    ],
 }
 
 ###
