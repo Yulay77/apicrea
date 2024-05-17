@@ -4,7 +4,7 @@ const router = new Router();
 const checkAuth = require("../middlewares/checkAuth");
 
 // Collection route : GET : list users
-router.get("", /* middlewares */ checkAuth, UserController.cget);
+router.get("", checkAuth, UserController.cget);
 // Collection route : POST : create an user
 router.post("", /* middlewares */ UserController.post);
 

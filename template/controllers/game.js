@@ -51,6 +51,10 @@ module.exports = {
           .json({ error: "La partie n'a pas été trouvée." });
       }
 
+      if (game.player2) {
+        return res.status(403).json({ error: "Cette partie est déjà pleine." });
+      }
+
       // Si la partie existe, mettez à jour le joueur 2
       await Game.update(
         { player2: playerId },
@@ -65,6 +69,20 @@ module.exports = {
       if (activeGames[gameId]) {
         activeGames[gameId].player2 = playerId;
       }
+
+      /*if (game.player2) {
+        await Game.update(
+          { currentTurn: game.player1 },
+
+          {
+            where: {
+              id: gameId,
+            },
+          }
+        );
+
+        activeGames[gameId].currentTurn = game.player1; // Update the activeGames object as well
+      }*/
 
       res.json({ message: "Vous avez rejoint la partie." });
     } catch (error) {
@@ -157,14 +175,15 @@ module.exports = {
 
       // Vérifiez si c'est le tour du joueur
 
-      /*if (game.currentTurn !== playerId) {
+      if (game.currentTurn !== playerId) {
         return res.status(403).json({ error: "Ce n'est pas votre tour." });
-      }*/
+      }
+
       // Mettez à jour le plateau de jeu
       const board = game.board;
       board[move] = playerId === game.player1 ? "X" : "O";
       // Vérifiez si le jeu est terminé
-      const winner = checkWinner(board, playerId === game.player1? "X" : "O");
+      const winner = checkWinner(board, playerId === game.player1 ? "X" : "O");
       if (winner) {
         await Game.update(
           { winner: winner },
@@ -201,7 +220,7 @@ const checkWinner = (board, currentPlayer) => {
   // Vérifiez les lignes
   for (let i = 0; i < 3; i++) {
     if (board[i] === board[i + 1] && board[i + 1] === board[i + 2]) {
-      if (board[i] === (currentPlayer === "X"? "X" : "O")) {
+      if (board[i] === (currentPlayer === "X" ? "X" : "O")) {
         return currentPlayer;
       }
     }
@@ -209,8 +228,11 @@ const checkWinner = (board, currentPlayer) => {
 
   // Vérifiez les colonnes
   for (let i = 0; i < 3; i++) {
-    if (board[i * 3] === board[i * 3 + 1] && board[i * 3 + 1] === board[i * 3 + 2]) {
-      if (board[i * 3] === (currentPlayer === "X"? "X" : "O")) {
+    if (
+      board[i * 3] === board[i * 3 + 1] &&
+      board[i * 3 + 1] === board[i * 3 + 2]
+    ) {
+      if (board[i * 3] === (currentPlayer === "X" ? "X" : "O")) {
         return currentPlayer;
       }
     }
@@ -218,13 +240,13 @@ const checkWinner = (board, currentPlayer) => {
 
   // Vérifiez les diagonales
   if (board[0] === board[4] && board[4] === board[8]) {
-    if (board[0] === (currentPlayer === "X"? "X" : "O")) {
+    if (board[0] === (currentPlayer === "X" ? "X" : "O")) {
       return currentPlayer;
     }
   }
 
   if (board[2] === board[4] && board[4] === board[6]) {
-    if (board[2] === (currentPlayer === "X"? "X" : "O")) {
+    if (board[2] === (currentPlayer === "X" ? "X" : "O")) {
       return currentPlayer;
     }
   }

@@ -4,7 +4,6 @@ const express = require("express");
 const router = express.Router();
 const GameController = require("../controllers/game"); // Assurez-vous d'avoir un contrôleur de jeu approprié
 
-
 // Créer une nouvelle partie
 router.post("/create", GameController.createGame);
 
