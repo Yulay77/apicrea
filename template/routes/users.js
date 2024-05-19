@@ -2,9 +2,10 @@ const { Router } = require("express");
 const UserController = require("../controllers/users");
 const router = new Router();
 const checkAuth = require("../middlewares/checkAuth");
+const checkRole = require("../middlewares/checkRole");
 
 // Collection route : GET : list users
-router.get("", checkAuth, UserController.cget);
+router.get("", checkAuth, checkRole("admin"), UserController.cget);
 // Collection route : POST : create an user
 router.post("", /* middlewares */ UserController.post);
 
