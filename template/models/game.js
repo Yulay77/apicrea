@@ -41,6 +41,16 @@ module.exports = function GameModelGenerator(connection) {
                         msg: "Le plateau de jeu à eu une erreur à l'initialisation."}
                 },
             },
+            currentTurn: {
+                type: DataTypes.STRING,
+                allowNull: true,
+                validate: {
+                    len: {
+                        args: [36, 36], // UUIDs ont une longueur de 36
+                        msg: "L'ID du joueur actuel doit être un UUID valide."
+                    }
+                }
+            },
         },
         {
             sequelize: connection,

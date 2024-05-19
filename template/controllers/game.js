@@ -70,7 +70,7 @@ module.exports = {
         activeGames[gameId].player2 = playerId;
       }
 
-      /*if (game.player2) {
+      if (game.player2) {
         await Game.update(
           { currentTurn: game.player1 },
 
@@ -82,7 +82,7 @@ module.exports = {
         );
 
         activeGames[gameId].currentTurn = game.player1; // Update the activeGames object as well
-      }*/
+      }
 
       res.json({ message: "Vous avez rejoint la partie." });
     } catch (error) {
@@ -124,35 +124,6 @@ module.exports = {
     }
   },
 
-  /*play: async (req, res, next) => {
-    try {
-      const { gameId, playerId, move } = req.body;
-
-      // Recherchez la partie par son ID
-      const game = activeGames[gameId];
-
-      // Faites le mouvement
-      game.board[move] = game.currentTurn;
-
-      // Changez le tour
-      game.currentTurn =
-        game.currentTurn === game.player1 ? game.player2 : game.player1;
-
-      // Mettez à jour la partie dans la base de données
-      await Game.update(
-        { board: game.board, currentTurn: game.currentTurn },
-        {
-          where: {
-            id: gameId,
-          },
-        }
-      );
-
-      res.json({ message: "Le mouvement a été effectué.", game });
-    } catch (error) {
-      next(error);
-    }
-  },*/
   makeMove: async (req, res, next) => {
     try {
       const gameId = req.params.gameId; // Récupérez gameId à partir des paramètres de la requête
@@ -173,10 +144,29 @@ module.exports = {
           .json({ error: "La partie n'a pas été trouvée." });
       }
 
+      // Si le joueur n'est pas un joueur de cette partie, vous ne pouvez pas jouer
+      if (playerId !== game.player1 && playerId !== game.player2) {
+        return res
+          .status(403)
+          .json({ error: "Vous n'êtes pas un joueur de cette partie." });
+      }
+
+      // S'il n'y a pas de joueur 2, vous ne pouvez pas jouer
+      if (!game.player2) {
+        return res.status(403).json({ error: "En attente d'un autre joueur." });
+      }
+
       // Vérifiez si c'est le tour du joueur
 
       if (game.currentTurn !== playerId) {
+        console.log(game.currentTurn);
         return res.status(403).json({ error: "Ce n'est pas votre tour." });
+      }
+
+      // Vérifier si la case est déjà remplie
+
+      if (game.board[move] !== " ") {
+        return res.status(403).json({ error: "Cette case est déjà remplie." });
       }
 
       // Mettez à jour le plateau de jeu
