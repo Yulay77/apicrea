@@ -17,7 +17,7 @@ router.get("", /* middlewares */ GameController.getGame);
 router.delete("/delete", /* middlewares */ GameController.deleteAll);
 
 // Item route : DELETE : delete a game
-router.delete("/delete/:gameId", /* middlewares */ GameController.deleteOne);
+router.delete("/end/:gameId", /* middlewares */ GameController.deleteOne);
 
 // Jouer 
 router.post("/play/:gameId", GameController.makeMove);

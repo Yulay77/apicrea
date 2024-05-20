@@ -12,11 +12,8 @@ GET http://localhost:5001/game
 ##### Supprime toutes les parties en cours
 DELETE http://localhost:5001/game/delete
 
-### Supprime une partie (id de la game dans l'url)
-DELETE http://localhost:5001/game/delete/623
-
 ### Rejoindre une partie (id de la game dans l'url)
-POST http://localhost:5001/game/join/d4e6c9ce-0c52-4d0d-97cd-8d3a4868b419
+POST http://localhost:5001/game/join/ce49ec0e-8b8d-4871-aa27-a6712246aefb
 Content-Type: application/json 
 
 {
@@ -25,19 +22,22 @@ Content-Type: application/json
 
 
 ### Make Move (id game + user 1) 
-POST http://localhost:5001/game/play/d4e6c9ce-0c52-4d0d-97cd-8d3a4868b419
+POST http://localhost:5001/game/play/ce49ec0e-8b8d-4871-aa27-a6712246aefb
 Content-Type: application/json 
 
 {
     "playerId":"483c7ac4-d625-411c-ba69-7cf54dd60740",
-    "move": 7
+    "move": 2
 }
 
 ### Make Move (id game + user 2)
-POST http://localhost:5001/game/play/d4e6c9ce-0c52-4d0d-97cd-8d3a4868b419
+POST http://localhost:5001/game/play/ce49ec0e-8b8d-4871-aa27-a6712246aefb
 Content-Type: application/json 
 
 {
     "playerId":"c944ceb9-d3ce-4d73-9902-2c6a1d4560ca",
-    "move": 2
+    "move": 7
 }
+
+### Terminer une partie (id de la game dans l'url)
+DELETE http://localhost:5001/game/end/ce49ec0e-8b8d-4871-aa27-a6712246aefb

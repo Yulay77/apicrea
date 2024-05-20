@@ -118,7 +118,7 @@ module.exports = {
         },
       });
       delete activeGames[gameId];
-      res.json({ message: "La partie a été supprimée." });
+      res.json({ message: "La partie a été clôturée." });
     } catch (error) {
       next(error);
     }
@@ -141,7 +141,7 @@ module.exports = {
       if (!game) {
         return res
           .status(404)
-          .json({ error: "La partie n'a pas été trouvée." });
+          .json({ error: "La partie n'a pas été trouvée. Soit elle n'existe pas, soit elle a été supprimée." });
       }
 
       // Si le joueur n'est pas un joueur de cette partie, vous ne pouvez pas jouer
@@ -155,6 +155,7 @@ module.exports = {
       if (!game.player2) {
         return res.status(403).json({ error: "En attente d'un autre joueur." });
       }
+
 
       // Vérifiez si c'est le tour du joueur
 
@@ -176,7 +177,7 @@ module.exports = {
       const winner = checkWinner(board, playerId === game.player1 ? "X" : "O");
       if (winner) {
         await Game.update(
-          { winner: winner },
+          { winner: winner},
           {
             where: {
               id: gameId,
@@ -184,7 +185,7 @@ module.exports = {
           }
         );
 
-        res.json({ message: `Le joueur ${winner} a gagné!` });
+        res.json({ message: `Le joueur ${winner} a gagné ! Veuillez fermer la partie et en créer une nouvelle, merci !` });
       } else {
         // Mettez à jour le tour actuel
 
@@ -243,35 +244,6 @@ const checkWinner = (board, currentPlayer) => {
   // Si personne n'a gagné, retournez null
   return null;
 };
-/*const checkWinner = (board) => {
-  // Vérifiez les lignes
-  for (let i = 0; i < 3; i++) {
-    if (board[i] === board[i + 1] && board[i + 1] === board[i + 2]) {
-      return board[i] === "X"? "X" : "O";
-    }
-  }
-
-  // Vérifiez les colonnes
-  for (let i = 0; i < 3; i++) {
-    if (board[i * 3] === board[i * 3 + 1] && board[i * 3 + 1] === board[i * 3 + 2]) {
-      return board[i * 3] === "X"? "X" : "O";
-    }
-  }
-
-  // Vérifiez les diagonales
-  if (board[0] === board[4] && board[4] === board[8]) {
-    return board[0] === "X"? "X" : "O";
-  }
-
-  if (board[2] === board[4] && board[4] === board[6]) {
-    return board[2] === "X"? "X" : "O";
-  }
-
-  // Si personne n'a gagné, retournez null
-  return null;
-};
-};*/
-
 function generateGameId() {
   return uuid.v4();
 }
