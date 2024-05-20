@@ -217,17 +217,16 @@ const checkWinner = (board, currentPlayer) => {
   }
 
   // Vérifiez les colonnes
-  for (let i = 0; i < 3; i++) {
+  for (let col = 0; col < 3; col++) {
     if (
-      board[i * 3] === board[i * 3 + 1] &&
-      board[i * 3 + 1] === board[i * 3 + 2]
+      board[col] === board[col + 3] &&
+      board[col + 3] === board[col + 6]
     ) {
-      if (board[i * 3] === (currentPlayer === "X" ? "X" : "O")) {
+      if (board[col] === (currentPlayer === "X" ? "X" : "O")) {
         return currentPlayer;
       }
     }
   }
-
   // Vérifiez les diagonales
   if (board[0] === board[4] && board[4] === board[8]) {
     if (board[0] === (currentPlayer === "X" ? "X" : "O")) {

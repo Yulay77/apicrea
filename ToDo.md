@@ -12,6 +12,11 @@
 
 - Si un joueur vient de jouer il ne doit pas pouvoir rejouer avant que l'autre joueur n'aie jouer son tour = OK
 
+- Verification de si quelqu'un a gagné semble buggé : 
+=> si le joueur X fait 0 + 3 + 6 il devrait gagner 
+=> Donc problème dans le check des colonnes = OK
+=> Diagonales et lignes sont OK 
+
 - Quand un joueur est déclaré gagnant la partie se termine on cloture la game 
 
 - Inclure CheckAuth a chaque move dans une partie ? ( de la connexion à la fin)
@@ -21,3 +26,4 @@
 - inclure la gestion de la norme HATEOAS
 
 - Faire un READ.ME qui explique tout notre projet et comment verifier que ca fonctionne bien.
+
