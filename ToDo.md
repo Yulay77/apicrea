@@ -19,6 +19,8 @@
 
 - Quand un joueur est déclaré gagnant, on demande de cloturer la partie et on fait une requete DELETE camouflée en "terminer la partie / cloturer" = OK 
 
+- Uniquement un joueur de la partie peut la cloturer
+
 - Inclure CheckAuth a chaque move dans une partie ? ( de la connexion à la fin)
 
 - Inclure le versionning 
