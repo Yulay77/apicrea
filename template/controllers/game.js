@@ -109,9 +109,43 @@ module.exports = {
       next(error);
     }
   },
+  /*deleteOne: async (req, res, next) => {
+    try {
+      const gameId = req.params.gameId;
+      await Game.destroy({
+        where: {
+          id: gameId,
+        },
+      });
+      delete activeGames[gameId];
+      res.json({ message: "La partie a été clôturée." });
+    } catch (error) {
+      next(error);
+    }
+  },*/
   deleteOne: async (req, res, next) => {
     try {
       const gameId = req.params.gameId;
+      const playerId = req.body.playerId; // Récupérez l'identifiant du joueur depuis les paramètres de la requête
+  
+      // Recherchez la partie par son ID
+      const game = await Game.findByPk(gameId);
+  
+      // Si la partie n'existe pas, retournez une erreur
+      if (!game) {
+        return res
+          .status(404)
+          .json({ error: "La partie n'a pas été trouvée." });
+      }
+  
+      // Vérifiez si le joueur fait partie de la partie
+      console.log(playerId);
+      if (playerId !== game.player1 && playerId !== game.player2) {
+        return res
+          .status(403)
+          .json({ error: "Vous n'êtes pas autorisé à supprimer cette partie." });
+      }
+  
       await Game.destroy({
         where: {
           id: gameId,

@@ -15,7 +15,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOiI4OGM5Z
 
 
 ### Rejoindre une partie (id de la game dans l'url)
-POST http://localhost:5001/game/join/ce49ec0e-8b8d-4871-aa27-a6712246aefb
+POST http://localhost:5001/game/join/50d57a81-9ffe-4c84-b445-d446812d9885
 Content-Type: application/json 
 
 {
@@ -24,8 +24,7 @@ Content-Type: application/json
 
 
 ### Make Move (id game + user 1) 
-POST http://localhost:5001/game/play/ce49ec0e-8b8d-4871-aa27-a6712246aefb
-Content-Type: application/json 
+POST http://localhost:5001/game/play/50d57a81-9ffe-4c84-b445-d446812d9885
 
 {
     "playerId":"483c7ac4-d625-411c-ba69-7cf54dd60740",
@@ -33,7 +32,7 @@ Content-Type: application/json
 }
 
 ### Make Move (id game + user 2)
-POST http://localhost:5001/game/play/ce49ec0e-8b8d-4871-aa27-a6712246aefb
+POST http://localhost:5001/game/play/50d57a81-9ffe-4c84-b445-d446812d9885
 Content-Type: application/json 
 
 {
@@ -42,4 +41,9 @@ Content-Type: application/json
 }
 
 ### Terminer une partie (id de la game dans l'url)
-DELETE http://localhost:5001/game/end/ce49ec0e-8b8d-4871-aa27-a6712246aefb
+DELETE http://localhost:5001/game/end/50d57a81-9ffe-4c84-b445-d446812d9885
+Content-Type: application/json 
+
+{
+    "playerId":"c944ceb9-d3ce-4d73-9902-2c6a1d4560ca"
+}
