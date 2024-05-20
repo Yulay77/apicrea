@@ -9,8 +9,10 @@ Content-Type: application/json
 ### Voir les parties en cours
 GET http://localhost:5001/game
 
-##### Supprime toutes les parties en cours
+##### Supprime toutes les parties en cours (ADMIN ONLY)
 DELETE http://localhost:5001/game/delete
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOiI4OGM5ZGVmYS1jYWJmLTQ4ZDktYWJiOS0xYWMyZGJjYWNjZjEiLCJmdWxsTmFtZSI6InRvbTEzIFRvbTEzIiwiaWF0IjoxNzE2MTEwNjUxfQ.wSg-q2bdKYL8SOLrAuNkjoDeJhORQm8hJbZL1xesriE
+
 
 ### Rejoindre une partie (id de la game dans l'url)
 POST http://localhost:5001/game/join/ce49ec0e-8b8d-4871-aa27-a6712246aefb

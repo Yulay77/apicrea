@@ -1,5 +1,5 @@
-// gameRoutes.js
-
+const checkRole = require("../middlewares/checkRole");
+const checkAuth = require("../middlewares/checkAuth");
 const express = require("express");
 const router = express.Router();
 const GameController = require("../controllers/game"); // Assurez-vous d'avoir un contrôleur de jeu approprié
@@ -14,7 +14,7 @@ router.post("/join/:gameId",/* middlewares */ GameController.joinGame);
 router.get("", /* middlewares */ GameController.getGame);
 
 // Item route : DELETE ALL : delete all games
-router.delete("/delete", /* middlewares */ GameController.deleteAll);
+router.delete("/delete", /* middlewares */checkAuth, checkRole("admin"), GameController.deleteAll);
 
 // Item route : DELETE : delete a game
 router.delete("/end/:gameId", /* middlewares */ GameController.deleteOne);

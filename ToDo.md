@@ -17,7 +17,7 @@
 => Donc problème dans le check des colonnes = OK
 => Diagonales et lignes sont OK 
 
-- Quand un joueur est déclaré gagnant la partie se termine on cloture la game 
+- Quand un joueur est déclaré gagnant, on demande de cloturer la partie et on fait une requete DELETE camouflée en "terminer la partie / cloturer" = OK 
 
 - Inclure CheckAuth a chaque move dans une partie ? ( de la connexion à la fin)
 
