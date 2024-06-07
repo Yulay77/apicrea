@@ -17,5 +17,4 @@ router.patch("/:id", /* middlewares */ UserController.patch);
 router.put("/:id", /* middlewares */ UserController.put);
 // Item route : DELETE : delete an user
 router.delete("/:id", /* middlewares */ UserController.delete);
-
 module.exports = router;

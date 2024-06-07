@@ -1,4 +1,5 @@
 const { User } = require("../models");
+const { deleteAll } = require("./game");
 
 module.exports = {
   cget: async (req, res, next) => {
