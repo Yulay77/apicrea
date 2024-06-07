@@ -23,8 +23,8 @@
 
 - Inclure CheckAuth a chaque move dans une partie ? ( de la connexion à la fin) = OK
 
+- Inclure la gestion de la traduction = OK POUR LA PARTIE GAME
 - Inclure le versionning 
-- Inclure la gestion de la traduction
 - inclure la gestion de la norme HATEOAS
 
 - Faire un READ.ME qui explique tout notre projet et comment verifier que ca fonctionne bien.
