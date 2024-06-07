@@ -1,7 +1,7 @@
 const { NOT } = require("sequelize/lib/deferrable");
 const { Game } = require("../models");
 const uuid = require("uuid");
-// game.js
+const i18n = require("i18n");
 
 // Stockage des parties en cours
 const activeGames = {};
@@ -10,9 +10,9 @@ module.exports = {
   getGame: async (req, res, next) => {
     try {
       const gamesFound = await Game.findAll({
-        /*where: {
+        where: {
           player2: null,
-        },*/
+        },
       });
       res.json(gamesFound);
     } catch (error) {
@@ -21,13 +21,13 @@ module.exports = {
   },
   createGame: async (req, res, next) => {
     try {
-      const creatorId = req.body.creatorId; // Assurez-vous que c'est un UUID
-      const gameId = generateGameId(); // Générez un identifiant unique pour la partie
+      const creatorId = req.body.creatorId; 
+      const gameId = generateGameId(); 
       const newGame = {
         id: gameId,
-        player1: creatorId, // Le créateur est le joueur 1
-        board: [" ", " ", " ", " ", " ", " ", " ", " ", " "], // Initialiser le plateau de jeu avec un tableau de 9 chaînes vides
-        currentTurn: creatorId, // Le créateur commence
+        player1: creatorId, 
+        board: [" ", " ", " ", " ", " ", " ", " ", " ", " "], 
+        currentTurn: creatorId,
       };
       activeGames[gameId] = newGame;
       await Game.create(newGame); // Ajouter la nouvelle partie à la base de données
@@ -46,13 +46,15 @@ module.exports = {
 
       // Si la partie n'existe pas, retournez une erreur
       if (!game) {
+        const gameNotFound = i18n.__({ phrase: 'game.gameNotFound', locale: req.locale });
         return res
           .status(404)
-          .json({ error: "La partie n'a pas été trouvée." });
+          .json(gameNotFound);
       }
 
       if (game.player2) {
-        return res.status(403).json({ error: "Cette partie est déjà pleine." });
+        const gameFull = i18n.__({ phrase: 'game.gameFull', locale: req.locale });
+        return res.status(403).json(gameFull);
       }
 
       // Si la partie existe, mettez à jour le joueur 2
@@ -81,17 +83,16 @@ module.exports = {
           }
         );
 
-        activeGames[gameId].currentTurn = game.player1; // Update the activeGames object as well
+        activeGames[gameId].currentTurn = game.player1; 
       }
-
-      res.json({ message: "Vous avez rejoint la partie." });
+      gameJoined = i18n.__({ phrase: 'game.gameJoined', locale: req.locale });
+      res.json(gameJoined);
     } catch (error) {
       next(error);
     }
   },
   deleteAll: async (req, res, next) => {
     try {
-      // Supprimez toutes les parties de la base de données
       await Game.destroy({
         where: {},
         truncate: true, // Cette option supprime toutes les lignes et réinitialise les compteurs d'auto-incrémentation
@@ -103,26 +104,12 @@ module.exports = {
           delete activeGames[prop];
         }
       }
-
-      res.json({ message: "Toutes les parties ont été supprimées." });
+      allGamesDeleted = i18n.__({ phrase: 'game.allGamesDeleted', locale: req.locale });
+      res.json(allGamesDeleted);
     } catch (error) {
       next(error);
     }
   },
-  /*deleteOne: async (req, res, next) => {
-    try {
-      const gameId = req.params.gameId;
-      await Game.destroy({
-        where: {
-          id: gameId,
-        },
-      });
-      delete activeGames[gameId];
-      res.json({ message: "La partie a été clôturée." });
-    } catch (error) {
-      next(error);
-    }
-  },*/
   deleteOne: async (req, res, next) => {
     try {
       const gameId = req.params.gameId;
@@ -133,17 +120,19 @@ module.exports = {
   
       // Si la partie n'existe pas, retournez une erreur
       if (!game) {
+        gameNotFound = i18n.__({ phrase: 'game.gameNotFound', locale: req.locale });
         return res
           .status(404)
-          .json({ error: "La partie n'a pas été trouvée." });
+          .json(gameNotFound);
       }
   
       // Vérifiez si le joueur fait partie de la partie
       console.log(playerId);
       if (playerId !== game.player1 && playerId !== game.player2) {
+        notAutorizedDeleteGame = i18n.__({ phrase: 'game.notAutorizedDeleteGame', locale: req.locale });
         return res
           .status(403)
-          .json({ error: "Vous n'êtes pas autorisé à supprimer cette partie." });
+          .json(notAutorizedDeleteGame);
       }
   
       await Game.destroy({
@@ -152,7 +141,8 @@ module.exports = {
         },
       });
       delete activeGames[gameId];
-      res.json({ message: "La partie a été clôturée." });
+      gameEnded = i18n.__({ phrase: 'game.gameEnded', locale: req.locale });
+      res.json(gameEnded);
     } catch (error) {
       next(error);
     }
@@ -173,35 +163,40 @@ module.exports = {
       // Si la partie n'existe pas, retournez une erreur
 
       if (!game) {
+        gameMakeMoveNotFound = i18n.__({ phrase: 'game.gameMakeMoveNotFound', locale: req.locale });
         return res
           .status(404)
-          .json({ error: "La partie n'a pas été trouvée. Soit elle n'existe pas, soit elle a été supprimée." });
+          .json(gameMakeMoveNotFound);
       }
 
       // Si le joueur n'est pas un joueur de cette partie, vous ne pouvez pas jouer
       if (playerId !== game.player1 && playerId !== game.player2) {
+        gameNotAPlayer = i18n.__({ phrase: 'game.gameNotAPlayer', locale: req.locale });
         return res
           .status(403)
-          .json({ error: "Vous n'êtes pas un joueur de cette partie." });
+          .json(gameNotAPlayer);
       }
 
       // S'il n'y a pas de joueur 2, vous ne pouvez pas jouer
       if (!game.player2) {
-        return res.status(403).json({ error: "En attente d'un autre joueur." });
+        waitingAnotherPlayer = i18n.__({ phrase: 'game.waitingAnotherPlayer', locale: req.locale });
+        return res.status(403).json(waitingAnotherPlayer);
       }
 
 
       // Vérifiez si c'est le tour du joueur
 
       if (game.currentTurn !== playerId) {
+        gameNotYourTurn = i18n.__({ phrase: 'game.gameNotYourTurn', locale: req.locale });
         console.log(game.currentTurn);
-        return res.status(403).json({ error: "Ce n'est pas votre tour." });
+        return res.status(403).json(gameNotYourTurn);
       }
 
       // Vérifier si la case est déjà remplie
 
       if (game.board[move] !== " ") {
-        return res.status(403).json({ error: "Cette case est déjà remplie." });
+        moveAlreadyMade = i18n.__({ phrase: 'game.moveAlreadyMade', locale: req.locale });
+        return res.status(403).json(moveAlreadyMade);
       }
 
       // Mettez à jour le plateau de jeu
@@ -218,8 +213,8 @@ module.exports = {
             },
           }
         );
-
-        res.json({ message: `Le joueur ${winner} a gagné ! Veuillez fermer la partie et en créer une nouvelle, merci !` });
+        winnerFound = i18n.__({ phrase: 'game.winner', locale: req.locale });
+        res.json(winnerFound);
       } else {
         // Mettez à jour le tour actuel
 
@@ -234,13 +229,15 @@ module.exports = {
             },
           }
         );
-        res.json({ message: "Mouvement effectué avec succès." });
+        moveMade = i18n.__({ phrase: 'game.moveMade', locale: req.locale });
+        res.json(moveMade);
       }
     } catch (error) {
       next(error);
     }
   },
 };
+//Devrait être dans le dossier middlewares
 const checkWinner = (board, currentPlayer) => {
   // Vérifiez les lignes
   for (let i = 0; i < 3; i++) {

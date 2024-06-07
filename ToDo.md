@@ -21,7 +21,7 @@
 
 - Uniquement un joueur de la partie peut la cloturer = OK 
 
-- Inclure CheckAuth a chaque move dans une partie ? ( de la connexion à la fin)
+- Inclure CheckAuth a chaque move dans une partie ? ( de la connexion à la fin) = OK
 
 - Inclure le versionning 
 - Inclure la gestion de la traduction
