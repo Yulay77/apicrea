@@ -1,4 +1,4 @@
-/*const { NOT } = require("sequelize/lib/deferrable");
+const { NOT } = require("sequelize/lib/deferrable");
 const { Game } = require("../models");
 const uuid = require("uuid");
 const i18n = require("i18n");
@@ -278,4 +278,3 @@ const checkWinner = (board, currentPlayer) => {
 function generateGameId() {
   return uuid.v4();
 }
-*/

@@ -1,4 +1,4 @@
-/*const { NOT } = require("sequelize/lib/deferrable");
+const { NOT } = require("sequelize/lib/deferrable");
 const { Game } = require("../models");
 const uuid = require("uuid");
 const i18n = require("i18n");
@@ -110,44 +110,6 @@ module.exports = {
       next(error);
     }
   },
-  deleteOne: async (req, res, next) => {
-    try {
-      const gameId = req.params.gameId;
-      const playerId = req.body.playerId; // Récupérez l'identifiant du joueur depuis les paramètres de la requête
-  
-      // Recherchez la partie par son ID
-      const game = await Game.findByPk(gameId);
-  
-      // Si la partie n'existe pas, retournez une erreur
-      if (!game) {
-        gameNotFound = i18n.__({ phrase: 'game.gameNotFound', locale: req.locale });
-        return res
-          .status(404)
-          .json(gameNotFound);
-      }
-  
-      // Vérifiez si le joueur fait partie de la partie
-      console.log(playerId);
-      if (playerId !== game.player1 && playerId !== game.player2) {
-        notAutorizedDeleteGame = i18n.__({ phrase: 'game.notAutorizedDeleteGame', locale: req.locale });
-        return res
-          .status(403)
-          .json(notAutorizedDeleteGame);
-      }
-  
-      await Game.destroy({
-        where: {
-          id: gameId,
-        },
-      });
-      delete activeGames[gameId];
-      gameEnded = i18n.__({ phrase: 'game.gameEnded', locale: req.locale });
-      res.json(gameEnded);
-    } catch (error) {
-      next(error);
-    }
-  },
-
   makeMove: async (req, res, next) => {
     try {
       const gameId = req.params.gameId; // Récupérez gameId à partir des paramètres de la requête
@@ -278,4 +240,3 @@ const checkWinner = (board, currentPlayer) => {
 function generateGameId() {
   return uuid.v4();
 }
-*/

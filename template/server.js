@@ -6,6 +6,7 @@ const securityRouter = require("./routes/security");
 const GameRouter = require("./routes/game");
 const checkAuth = require("./middlewares/checkAuth");
 const i18n = require('i18n');
+const versionning = require("./middlewares/versionning");
 const app = express();
 
 app.use(express.json());
@@ -13,7 +14,17 @@ app.use(express.json());
 app.use("/security", securityRouter);
 app.use("/users", UserRouter);
 app.use("/products", checkAuth, ProductRouter);
-app.use("/game", GameRouter);
+//app.use("/game", versionning, GameRouter);
+
+app.use("/game", versionning, (req, res, next) => {
+
+  const version = req.version;
+
+  const gameRouter = require(`./routes/game/${version}.js`);
+
+  gameRouter(req, res, next);
+
+});
 
 i18n.configure({
   locales: ["fr", "en"],
